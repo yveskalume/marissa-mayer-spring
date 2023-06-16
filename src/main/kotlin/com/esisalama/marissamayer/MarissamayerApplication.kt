@@ -21,11 +21,30 @@ class SecurityConfiguration {
 	@Bean
 	fun filterChain(http: HttpSecurity): SecurityFilterChain {
 		http.invoke {
+			csrf {
+				disable()
+			}
+			headers {
+				frameOptions {
+					disable()
+				}
+			}
 			authorizeRequests {
 				authorize(anyRequest, permitAll)
 			}
-			formLogin { }
-			httpBasic { }
+			formLogin {
+				loginPage = "/login"
+				loginProcessingUrl = "/login"
+				defaultSuccessUrl("/",false)
+				failureUrl = "/login?error"
+				permitAll()
+			}
+			logout {
+				logoutUrl = "/logout"
+				logoutSuccessUrl = "login?logout"
+			}
+			httpBasic {
+			}
 		}
 		return http.build()
 	}
