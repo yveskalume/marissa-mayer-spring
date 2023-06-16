@@ -1,7 +1,7 @@
 package com.esisalama.marissamayer.data.entity
 
 import jakarta.persistence.*
-import java.time.Instant
+import java.util.*
 
 @Entity
 data class Cours(
@@ -16,14 +16,14 @@ data class Cours(
         val prerequis: String? = null,
 
         @Column(nullable = false)
-        val createdAt: Instant
+        val createdAt: Date
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0
 
     @ManyToOne
-    @JoinColumn(name = "categorie_id", nullable = false)
+    @JoinColumn(name = "categorie_id", nullable = true)
     val categorie: Categorie? = null
 
     @OneToMany(mappedBy = "cours")
