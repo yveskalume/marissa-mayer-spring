@@ -41,7 +41,7 @@ class SecurityConfiguration {
 			}
 			logout {
 				logoutUrl = "/logout"
-				logoutSuccessUrl = "login?logout"
+				logoutSuccessUrl = "/login?logout"
 			}
 			httpBasic {
 			}
