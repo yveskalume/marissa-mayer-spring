@@ -24,9 +24,11 @@ data class Utilisateur(
         @Column(nullable = false)
         val role: Role
 ) {
+    constructor() : this("", "", "", "", Instant.now(), Role.ETUDIANT)
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0
+    val id: Long? = null
 }
 
 enum class Role {
