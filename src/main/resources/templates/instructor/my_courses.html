@@ -18,6 +18,28 @@
                                 <p th:text="${#lists.size(courses) + ' Cours' }"></p>
                             </div>
                         </div>
+                        <div class="nk-block-head-content">
+                            <div class="toggle-wrap nk-block-tools-toggle"><a
+                                    class="btn btn-icon btn-trigger toggle-expand me-n1"
+                                    data-target="pageMenu"
+                                    href="#"><em
+                                    class="icon ni ni-menu-alt-r"></em></a>
+                                <div class="toggle-expand-content" data-content="pageMenu">
+                                    <ul class="nk-block-tools g-3">
+                                        <li class="nk-block-tools-opt d-none d-sm-block">
+                                            <a class="btn btn-primary"
+                                               th:href="@{/cours/new}">
+                                                <em class="icon ni ni-plus"></em><span>Nouveau cours</span></a>
+                                        </li>
+                                        <li class="nk-block-tools-opt d-block d-sm-none"
+                                            data-bs-target="#modalCreate" data-bs-toggle="modal"><a
+                                                class="btn btn-icon btn-primary"
+                                                href="#"><em
+                                                class="icon ni ni-plus"></em></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="nk-block">
@@ -67,7 +89,8 @@
                                             <span th:text="${cours.duree + ' Heures'}">Duree</span>
                                         </td>
                                         <td class="nk-tb-col tb-col-md">
-                                            <span class="badge badge-md bg-primary" th:text="'$' + ${cours.prix}">Prix</span>
+                                            <span class="badge badge-md bg-primary"
+                                                  th:text="'$' + ${cours.prix}">Prix</span>
                                         </td>
                                         <td class="nk-tb-col tb-col-lg">
                                             <span th:text=" ${#dates.format(cours.createdAt,'dd/MMM/yyyy')}">Date de création</span>

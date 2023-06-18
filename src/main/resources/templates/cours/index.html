@@ -63,7 +63,7 @@
                                             </a>
                                         </td>
                                         <td class="nk-tb-col tb-col-lg">
-                                            <span th:text="${cours.categorie}"></span>
+                                            <span th:text="${cours?.categorie?.nom}"></span>
                                         </td>
                                         <td class="nk-tb-col tb-col-lg">
                                             <span th:text="${cours.instructeur.prenom +' '+ cours.instructeur.nom}">Intructeur</span>
@@ -72,7 +72,7 @@
                                             <span th:text="${cours.duree + ' Heures'}">Duree</span>
                                         </td>
                                         <td class="nk-tb-col tb-col-md">
-                                            <span class="badge badge-dim bg-success" th:text="'$' + ${cours.prix}">Prix</span>
+                                            <span class="badge badge-md bg-primary" th:text="'$' + ${cours.prix}">Prix</span>
                                         </td>
                                         <td class="nk-tb-col tb-col-lg">
                                             <span th:text=" ${#dates.format(cours.createdAt,'dd/MMM/yyyy')}">Date de création</span>

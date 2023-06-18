@@ -18,7 +18,6 @@ class InstructorController(
     @GetMapping(value = ["/instructor/my-courses"], name = "instructor.my-courses")
     fun myCourses(auth:Authentication,model: Model): String {
         val user = auth.principal as User
-        println(user.username)
         val courses = user.username?.let { coursRepository.findByInstructeurEmail(it) } ?: listOf()
         model.addAttribute("courses", courses)
         return "instructor/my_courses"
