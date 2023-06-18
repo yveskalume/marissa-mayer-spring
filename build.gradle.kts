@@ -28,8 +28,11 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
 
 	implementation("com.github.javafaker:javafaker:1.0.2")
+	implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.2.0")
+
 }
 
 tasks.withType<KotlinCompile> {

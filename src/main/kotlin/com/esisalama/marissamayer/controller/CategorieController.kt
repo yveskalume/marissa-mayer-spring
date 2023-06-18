@@ -9,15 +9,14 @@ import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.*
 
 @Controller
-@RequestMapping("/categories")
 class CategorieController(
         @Autowired private val categorieRepository: CategorieRepository
 ) {
-    @GetMapping
+    @GetMapping("/categories")
     fun getAllCategories(model: Model): String {
         val categories = categorieRepository.findAll()
         model.addAttribute("categories", categories)
-        return "categories/list"
+        return "categorie/index"
     }
 
     @GetMapping("/{id}")

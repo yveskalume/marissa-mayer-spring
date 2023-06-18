@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="Softnio" name="author">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers."
+          name="description">
+    <link href="/images/favicon.png" rel="shortcut icon">
+    <title>Marissa</title>
+    <link href="/css/dashlite41fe.css?ver=3.0.1" rel="stylesheet">
+    <link href="/css/theme41fe.css?ver=3.0.1" id="skin-default" rel="stylesheet">
+</head>
+<body class="nk-body bg-lighter npc-general has-sidebar ">
+<div class="nk-app-root">
+    <div class="nk-main ">
+        <div th:replace="fragments/_sidebar::sidebar"></div>
+        <div class="nk-wrap ">
+            <div th:replace="fragments/_header::header"></div>
+
+            <section layout:fragment="content">
+                <p>Page content goes here</p>
+            </section>
+
+            <div class="nk-footer">
+                <div class="container-fluid">
+                    <div class="nk-footer-wrap">
+                        <div class="nk-footer-copyright"> &copy; 2023 Marissa Mayer</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/bundle41fe.js?ver=3.0.1"></script>
+<script src="/js/scripts41fe.js?ver=3.0.1"></script>
+<script src="/js/demo-settings41fe.js?ver=3.0.1"></script>
+</body>
+</html>
