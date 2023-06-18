@@ -24,7 +24,7 @@
                                 <div class="nk-block-head-content"><h5 class="nk-block-title">Créer un compte</h5>
                                 </div>
                             </div>
-                            <form action="#" method="POST" th:action="@{/register}" th:object="${utilisateur}">
+                            <form action="#" method="POST" th:action="@{/register}" th:object="${utilisateurForm}">
 
                                 <div class="form-group"><label class="form-label" for="name">Nom</label>
                                     <div class="form-control-wrap">
@@ -69,8 +69,6 @@
                                 <div class="form-group">
                                     <button class="btn btn-lg btn-primary btn-block">S'enregistrer</button>
                                 </div>
-                                <input type="text" th:field="*{role}" hidden>
-                                <input type="text" th:field="*{createdAt}" hidden>
                             </form>
                             <div class="form-note-s2 pt-4"> Avez-vous un compte ? <a
                                     th:href="@{/login}"><strong>Connectez-vous</strong></a></div>

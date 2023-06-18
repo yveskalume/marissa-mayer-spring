@@ -25,6 +25,7 @@ data class Utilisateur(
         val role: Role
 ) {
     constructor() : this("", "", "", "", Instant.now(), Role.ETUDIANT)
+    constructor(nom: String, prenom: String, email: String, password: String) : this(nom, prenom, email, password, Instant.now(), Role.ETUDIANT)
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
