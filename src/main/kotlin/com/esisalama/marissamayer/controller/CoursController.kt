@@ -16,16 +16,20 @@ class CoursController(
 ) {
     @GetMapping
     fun getAllCours(model: Model): String {
-        val coursList = coursRepository.findAll()
-        model.addAttribute("coursList", coursList)
-        return "cours/list"
+        val courses = coursRepository.findAll()
+        model.addAttribute("courses", courses)
+        return "cours/index"
     }
 
     @GetMapping("/{id}")
     fun getCoursById(@PathVariable id: Long, model: Model): String {
         val cours = coursRepository.findById(id)
                 .orElseThrow { Exception("Cours not found with id: $id") }
+
+        val suggestionCours = cours.categorie?.let { coursRepository.findByCategorieId(it.id) } ?: listOf()
+
         model.addAttribute("cours", cours)
+        model.addAttribute("suggestionCours", suggestionCours)
         return "cours/details"
     }
 

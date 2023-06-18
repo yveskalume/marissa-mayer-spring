@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html layout:decorate="~{fragments/_dashboard.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Categories</title>
+</head>
+<body>
+<div class="nk-content " layout:fragment="content">
+    <div class="container">
+        <div class="nk-content-inner">
+            <div class="nk-content-body">
+                <div class="nk-block-head nk-block-head-sm">
+                    <div class="nk-block-between g-3">
+                        <div class="nk-block-head-content">
+                            <h3 class="nk-block-title page-title">
+                                Détails du cours
+                            </h3>
+                        </div>
+                        <div class="nk-block-head-content">
+                            <a class="btn btn-outline-light bg-white d-none d-sm-inline-flex" onclick="history.go(-1)">
+                                <em class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                            <a class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"
+                               onclick="history.go(-1)">
+                                <em class="icon ni ni-arrow-left"></em></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-block">
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="row pb-5">
+                                <div class="col-lg-12">
+                                    <div class="product-info mt-5 me-xxl-5">
+                                        <h2 class="product-title" th:text="${cours.nom}">Titre</h2>
+                                        <h4 class="product-price text-primary" th:text="'$'+${cours.prix}">Prix</h4>
+                                        <div class="product-excrept text-soft">
+                                            <p class="lead" th:text="${cours.description}">Description</p></div>
+                                        <div class="product-meta">
+                                            <ul class="d-flex g-3 gx-5">
+                                                <li>
+                                                    <div class="fs-14px text-muted">Durée :</div>
+                                                    <div class="fs-14px text-muted">Prérequis :</div>
+                                                </li>
+
+                                                <li>
+                                                    <div class="fs-14px bold"
+                                                         th:text="${cours.duree + ' Heures'}"></div>
+                                                    <div class="fs-14px bold"
+                                                         th:text="${cours.prerequis}"></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="hr border-light">
+                            <div class="row g-gs flex-lg-row-reverse pt-5">
+                                <div class="col-lg-12">
+<!--&lt;!&ndash;                             Creneaux ici       -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-block nk-block-lg">
+                    <div class="nk-block-head">
+                        <div class="nk-block-between g-3">
+                            <div class="nk-block-head-content">
+                                <h3 class="nk-block-title page-title">Autres cours</h3></div>
+                        </div>
+                    </div>
+                    <div class="slider-init row"
+                         data-slick='{"slidesToShow": 4, "centerMode": false, "slidesToScroll": 1, "infinite":false, "responsive":[ {"breakpoint": 1540,"settings":{"slidesToShow": 3}},{"breakpoint": 992,"settings":{"slidesToShow": 2}}, {"breakpoint": 576,"settings":{"slidesToShow": 1}} ]}'>
+                        <div th:each="suggestion : ${suggestionCours}" class="col">
+                            <div class="card card-bordered product-card">
+                                <div class="product-thumb">
+                                    <ul class="product-badges">
+                                        <li>
+                                            <span class="badge bg-success" th:text="${suggestion.categorie.nom}">Categorie</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-inner text-center">
+                                    <div>
+                                        <h5 class="product-title">
+                                            <a th:href="@{/cours/{id}(id=${suggestion.id})}" th:text="${suggestion.nom}">Titre</a>
+                                        </h5>
+                                    </div>
+                                    <div class="product-price text-primary h5">
+                                        <small class="text-muted del fs-13px" th:text="'$'+${suggestion.prix}">Prix</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

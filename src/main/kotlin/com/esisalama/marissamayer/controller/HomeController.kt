@@ -18,6 +18,6 @@ class HomeController(
     fun index(): String {
         val cours = coursRepository.findAll()
         println(cours)
-        return "home"
+        return "redirect:/cours"
     }
 }

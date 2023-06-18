@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html layout:decorate="~{fragments/_dashboard.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Categories</title>
+</head>
+<body>
+<div class="nk-content " layout:fragment="content">
+    <div class="container-fluid">
+        <div class="nk-content-inner">
+            <div class="nk-content-body">
+                <div class="nk-block-head nk-block-head-sm">
+                    <div class="nk-block-between">
+                        <div class="nk-block-head-content">
+                            <h3 class="nk-block-title page-title">Tous les cours</h3>
+                            <div class="nk-block-des text-soft">
+                                <p th:text="${#lists.size(courses) + ' Cours' }"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-block">
+                    <div class="card card-stretch">
+                        <div class="card-inner-group">
+                            <div class="card-inner p-0">
+                                <table class="nk-tb-list nk-tb-ulist">
+                                    <thead>
+                                    <tr class="nk-tb-item nk-tb-head">
+                                        <th class="nk-tb-col"><span class="sub-text">Intitulé</span></th>
+                                        <th class="nk-tb-col tb-col-lg"><span
+                                                class="sub-text">Categorie</span></th>
+                                        <th class="nk-tb-col tb-col-lg"><span
+                                                class="sub-text">Instructeur</span></th>
+                                        <th class="nk-tb-col tb-col-lg">
+                                            <span class="sub-text">Durée</span>
+                                        </th>
+                                        <th class="nk-tb-col tb-col-lg">
+                                            <span class="sub-text">Prix</span>
+                                        </th>
+                                        <th class="nk-tb-col tb-col-lg">
+                                            <span class="sub-text">Date de création</span>
+                                        </th>
+                                        <th class="nk-tb-col nk-tb-col-tools text-end">
+                                            <ul class="nk-tb-actions gx-1">
+                                                <li>
+                                                    <div class="dropdown"><a
+                                                            class="btn btn-sm btn-trigger btn-icon dropdown-toggle">
+                                                        <em class="icon ni ni-more-h"></em></a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="nk-tb-item" th:each=" cours : ${courses}">
+                                        <td class="nk-tb-col">
+                                            <a class="project-title" th:href="@{/cours/{id}(id=${cours.id})}">
+                                                <div class="project-info">
+                                                    <h6 class="title" th:text="${cours.nom}">Titre</h6>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td class="nk-tb-col tb-col-lg">
+                                            <span th:text="${cours.categorie}"></span>
+                                        </td>
+                                        <td class="nk-tb-col tb-col-lg">
+                                            <span th:text="${cours.instructeur.prenom +' '+ cours.instructeur.nom}">Intructeur</span>
+                                        </td>
+                                        <td class="nk-tb-col tb-col-lg">
+                                            <span th:text="${cours.duree + ' Heures'}">Duree</span>
+                                        </td>
+                                        <td class="nk-tb-col tb-col-md">
+                                            <span class="badge badge-dim bg-success" th:text="'$' + ${cours.prix}">Prix</span>
+                                        </td>
+                                        <td class="nk-tb-col tb-col-lg">
+                                            <span th:text=" ${#dates.format(cours.createdAt,'dd/MMM/yyyy')}">Date de création</span>
+                                        </td>
+                                        <td class="nk-tb-col nk-tb-col-tools">
+                                            <ul class="nk-tb-actions gx-1">
+                                                <li>
+                                                    <div class="drodown"><a
+                                                            class="dropdown-toggle btn btn-sm btn-icon btn-trigger"
+                                                            data-bs-toggle="dropdown"
+                                                            href="#"><em
+                                                            class="icon ni ni-more-h"></em></a>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <ul class="link-list-opt no-bdr">
+                                                                <li><a data-bs-toggle="modal"
+                                                                       href="#modalEdit"><em
+                                                                        class="icon ni ni-edit"></em><span>Edit Course</span></a>
+                                                                </li>
+                                                                <li><a data-bs-toggle="modal"
+                                                                       href="#modalDelete"><em
+                                                                        class="icon ni ni-delete"></em><span>Delete Course</span></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
