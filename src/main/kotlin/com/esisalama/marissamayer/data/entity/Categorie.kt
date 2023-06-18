@@ -7,7 +7,7 @@ import java.time.Instant
 @Entity
 data class Categorie(
 
-        @NotBlank(message = "Le nom est obligatoire")
+        @field:NotBlank(message = "Le nom est obligatoire")
         @Column(nullable = false)
         val nom: String,
 

@@ -15,6 +15,11 @@
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title">Nouvelle Categorie</h3>
                         </div>
+                        <div class="nk-block-des alert alert-danger mt-1" th:if="${errors != null}" th:unless="${#lists.isEmpty(errors)}">
+                            <p th:each="error : ${errors}">
+                                <span th:text="${error.defaultMessage}"></span>
+                            </p>
+                        </div>
                     </div>
                     <div class="nk-block nk-block-lg">
                         <div class="card">

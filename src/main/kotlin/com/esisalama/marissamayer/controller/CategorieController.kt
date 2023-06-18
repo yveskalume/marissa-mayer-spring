@@ -37,9 +37,11 @@ class CategorieController(
     @PostMapping("/categories/new")
     fun createCategorie(
             @Valid categorie: Categorie,
-            bindingResult: BindingResult
+            bindingResult: BindingResult,
+            model: Model
     ): String {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.allErrors)
             return "categorie/create"
         }
         categorieRepository.save(categorie)
