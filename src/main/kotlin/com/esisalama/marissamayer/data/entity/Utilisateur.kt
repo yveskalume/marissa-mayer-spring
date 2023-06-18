@@ -1,19 +1,28 @@
 package com.esisalama.marissamayer.data.entity
 
 import jakarta.persistence.*
+import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Size
 import java.time.Instant
 
 @Entity
 data class Utilisateur(
+        @field:NotBlank(message = "Le nom est obligatoire")
         @Column(nullable = false)
         val nom: String,
 
+        @field:NotBlank(message = "Le prenom est obligatoire")
         @Column(nullable = false)
         val prenom: String,
 
-        @Column(nullable = false)
+        @field:NotBlank(message = "L'email est obligatoire")
+        @field:Email(message = "L'email est invalide")
+        @Column(nullable = false, unique = true)
         val email: String,
 
+        @field:NotBlank(message = "Le mot de passe est obligatoire")
+        @field:Size(min = 6, message = "Le mot de passe doit contenir au moins 6 caractères")
         @Column(nullable = false)
         val password: String,
 

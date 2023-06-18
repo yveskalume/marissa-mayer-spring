@@ -29,6 +29,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
+	// hibernate validator
+	implementation("org.hibernate.validator:hibernate-validator:7.0.1.Final")
 
 	implementation("com.github.javafaker:javafaker:1.0.2")
 	implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.2.0")

@@ -1,6 +1,5 @@
 package com.esisalama.marissamayer.controller
 
-import com.esisalama.marissamayer.controller.form.UtilisateurRegisterForm
 import com.esisalama.marissamayer.data.entity.Utilisateur
 import com.esisalama.marissamayer.data.repository.UtilisateurRepository
 import com.esisalama.marissamayer.data.services.UtilisateurService
@@ -11,11 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
-import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 @Controller
 class RegisterController {
@@ -24,24 +21,18 @@ class RegisterController {
     private lateinit var utilisateurService: UtilisateurService
 
     @GetMapping("/register")
-    fun getRegister(model: Model): String {
-        val utilisateurForm = UtilisateurRegisterForm()
-        model.addAttribute("utilisateurForm", utilisateurForm)
+    fun getRegister(model: Model) : String {
+        val utilisateur = Utilisateur()
+        model.addAttribute("utilisateur", utilisateur)
         return "auth/register"
     }
 
     @PostMapping("/register")
-    fun postRegister(@ModelAttribute utilisateurForm: UtilisateurRegisterForm, bindingResult: BindingResult): String {
+    fun postRegister(@Valid utilisateur: Utilisateur,bindingResult: BindingResult,model: Model) : String {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.allErrors)
             return "auth/register"
         }
-
-        val utilisateur = Utilisateur(
-                nom = utilisateurForm.nom,
-                prenom = utilisateurForm.prenom,
-                email = utilisateurForm.email,
-                password = utilisateurForm.password
-        )
         utilisateurService.save(utilisateur)
         return "redirect:/login"
     }
