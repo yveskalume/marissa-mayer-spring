@@ -46,16 +46,24 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nk-menu-item has-sub"><a class="nk-menu-link nk-menu-toggle" href="#"><span
-                            class="nk-menu-icon"><em class="icon ni ni-user-fill"></em></span><span
-                            class="nk-menu-text">Instructors</span></a>
+                    <li class="nk-menu-item has-sub">
+                        <a class="nk-menu-link nk-menu-toggle" href="#">
+                            <span class="nk-menu-icon">
+                                <em class="icon ni ni-user-fill"></em>
+                            </span>
+                            <span class="nk-menu-text">Instructeur</span>
+                        </a>
                         <ul class="nk-menu-sub">
-                            <li class="nk-menu-item"><a class="nk-menu-link"
-                                                        href="instructor-dashborad.html"><span
-                                    class="nk-menu-text">Instructor Overview</span></a>
+                            <li class="nk-menu-item">
+                                <a class="nk-menu-link" th:href="@{/instructor/my-courses}">
+                                    <span class="nk-menu-text">Mes cours</span>
+                                </a>
                             </li>
-                            <li class="nk-menu-item"><a class="nk-menu-link" href="instructor-list.html"><span
-                                    class="nk-menu-text">Instructor List</span></a></li>
+                            <li class="nk-menu-item">
+                                <a class="nk-menu-link" href="instructor-list.html">
+                                    <span class="nk-menu-text">Instructor List</span>
+                                </a>
+                            </li>
                             <li class="nk-menu-item"><a class="nk-menu-link"
                                                         href="instructor-details.html"><span
                                     class="nk-menu-text">Instructor Details</span></a>

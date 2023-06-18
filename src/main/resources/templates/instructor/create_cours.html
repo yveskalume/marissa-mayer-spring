@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html layout:decorate="~{fragments/_dashboard.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cours</title>
+</head>
+<body>
+<div class="nk-content " layout:fragment="content">
+    <div class="container-fluid">
+        <div class="nk-content-inner">
+            <div class="nk-content-body">
+                <div class="components-preview wide-md mx-auto">
+                    <div class="nk-block-head nk-block-head-lg wide-sm">
+                        <div class="nk-block-head-content">
+                            <h3 class="nk-block-title page-title">Nouveau Cours</h3>
+                        </div>
+                        <div class="nk-block-des alert alert-danger mt-1" th:if="${errors != null}"
+                             th:unless="${#lists.isEmpty(errors)}">
+                            <p th:each="error : ${errors}">
+                                <span th:text="${error.defaultMessage}"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="nk-block nk-block-lg">
+                        <div class="card">
+                            <div class="card-inner">
+                                <form action="#" method="POST" th:action="@{/cours/new}" th:object="${cours}">
+                                    <div class="row g-4">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-label"
+                                                       for="name">Nom du Cours</label>
+                                                <div class="form-control-wrap">
+                                                    <input class="form-control" id="name" th:field="*{nom}" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-label"
+                                                       for="prix">Prix ($)</label>
+                                                <div class="form-control-wrap">
+                                                    <input class="form-control" id="prix" th:field="*{prix}"
+                                                           type="number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-label"
+                                                       for="duree">Nombre d'heures</label>
+                                                <div class="form-control-wrap">
+                                                    <input class="form-control" id="duree" th:field="*{duree}"
+                                                           type="number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="categorie">Catégorie</label>
+                                                <div class="form-control-wrap">
+                                                    <select id="categorie" class="form-select js-select2" data-search="on"
+                                                            th:field="*{categorie}">
+                                                        <option th:each="cat : ${categories}"
+                                                                th:selected="${cat.id == cours?.categorie?.id}"
+                                                                th:text="${cat.nom}" th:value="${cat.id}">
+                                                            Categorie
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label class="form-label"
+                                                       for="prerequis">Prérequis (separez par une virgule)</label>
+                                                <div class="form-control-wrap">
+                                                    <input class="form-control" id="prerequis" th:field="*{prerequis}"
+                                                           type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="cf-default-textarea">Description</label>
+                                                <div class="form-control-wrap">
+                                                    <textarea
+                                                            th:field="*{description}"
+                                                        class="form-control form-control-sm"
+                                                        id="cf-default-textarea"
+                                                        placeholder="Write your message"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <button class="btn btn-lg btn-primary" type="submit">
+                                                    Enregistrer
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input th:field="*{createdAt}" type="hidden">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

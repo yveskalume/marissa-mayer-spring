@@ -1,8 +1,14 @@
 package com.esisalama.marissamayer.controller
 
+import com.esisalama.marissamayer.data.entity.Categorie
+import com.esisalama.marissamayer.data.entity.Cours
 import com.esisalama.marissamayer.data.repository.CategorieRepository
 import com.esisalama.marissamayer.data.repository.CoursRepository
+import com.esisalama.marissamayer.data.repository.UtilisateurRepository
+import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.userdetails.User
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
@@ -12,7 +18,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/cours")
 class CoursController(
         @Autowired private val coursRepository: CoursRepository,
-        @Autowired private val categorieRepository: CategorieRepository
+        @Autowired private val categorieRepository: CategorieRepository,
+        @Autowired private val utilisateurRepository: UtilisateurRepository
 ) {
     @GetMapping
     fun getAllCours(model: Model): String {
@@ -35,22 +42,37 @@ class CoursController(
 
     @GetMapping("/new")
     fun showCreateForm(model: Model): String {
+        val cours = Cours()
         val categories = categorieRepository.findAll()
+
+        model.addAttribute("cours", cours)
         model.addAttribute("categories", categories)
-        return "cours/create"
+
+        return "instructor/create_cours"
     }
 
-    @PostMapping
+    @PostMapping("/new")
     fun createCours(
-            bindingResult: BindingResult
+            @Valid cours: Cours,
+            bindingResult: BindingResult,
+            auth: Authentication,
+            model: Model
     ): String {
         if (bindingResult.hasErrors()) {
-            val categories = categorieRepository.findAll()
-//            model.addAttribute("categories", categories)
-            return "cours/create"
+            model.addAttribute("errors", bindingResult.allErrors)
+            return "instructor/create_cours"
         }
-//        coursRepository.save(cours)
-        return "redirect:/cours"
+
+        val springUser = auth.principal as User
+        val utilisateur = utilisateurRepository.findOneByEmail(springUser.username)
+
+        if (utilisateur.isPresent) {
+            val mCours = cours.copy(
+                    instructeur = utilisateur.get()
+            )
+            coursRepository.save(mCours)
+        }
+        return "redirect:/instructor/my-courses"
     }
 
     @GetMapping("/{id}/edit")

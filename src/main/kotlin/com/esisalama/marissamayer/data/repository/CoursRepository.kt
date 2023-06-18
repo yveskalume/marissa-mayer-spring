@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface CoursRepository : JpaRepository<Cours, Long> {
     fun findByCategorieId(id: Long): List<Cours>
+    fun findByInstructeurId(id: Long): List<Cours>
+    fun findByInstructeurEmail(email: String): List<Cours>
 }
