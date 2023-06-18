@@ -1,12 +1,81 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/_dashboard.html}">
+<html layout:decorate="~{fragments/_dashboard.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Categories</title>
 </head>
 <body>
-<section layout:fragment="content">
-    <p>This is a paragraph from the content page</p>
-</section>
+<div class="nk-content " layout:fragment="content">
+    <div class="container-fluid">
+        <div class="nk-content-inner">
+            <div class="nk-content-body">
+                <div class="nk-block-head nk-block-head-sm">
+                    <div class="nk-block-between">
+                        <div class="nk-block-head-content">
+                            <h3 class="nk-block-title page-title">Categories</h3>
+                        </div>
+                        <div class="nk-block-head-content">
+                            <div class="toggle-wrap nk-block-tools-toggle">
+
+                                <div class="toggle-expand-content" data-content="pageMenu">
+                                    <ul class="nk-block-tools g-3">
+                                        <li class="nk-block-tools-opt d-none d-sm-block"><a
+                                                class="btn btn-primary"
+                                                th:href="@{categories/new}">
+                                            <em class="icon ni ni-plus"></em>
+                                            <span>Nouvelle categorie</span>
+                                        </a>
+                                        </li>
+                                        <li class="nk-block-tools-opt d-block d-sm-none"><a
+                                                class="btn btn-icon btn-primary" data-bs-toggle="modal"
+                                                href="#modalCreate"><em class="icon ni ni-plus"></em></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-block">
+                    <div class="row g-gs">
+                        <div class="col-sm-6 col-lg-4 col-xxl-3" th:each="categorie : ${categories}">
+                            <div class="card h-100">
+                                <div class="card-inner">
+                                    <div class="d-flex justify-content-between align-items-start mb-3"><a
+                                            class="d-flex align-items-center" href="courses.html">
+                                        <div class="user-avatar sq bg-purple">
+                                            <span th:text="${#strings.substring(categorie.nom,0,2)}"></span>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="title mb-1" th:text="${categorie.nom}">Titre</h6>
+                                            <span class="sub-text" th:text="${#lists.size(categorie.cours) } + ' Cours' ">Nombre des cours dans la categorie</span></div>
+                                    </a>
+                                        <div class="dropdown"><a
+                                                class="dropdown-toggle btn btn-sm btn-icon btn-trigger mt-n1 me-n1"
+                                                data-bs-toggle="dropdown"
+                                                href="#"><em
+                                                class="icon ni ni-more-h"></em></a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <ul class="link-list-opt no-bdr">
+                                                    <li><a data-bs-toggle="modal" href="#modalEdit"><em
+                                                            class="icon ni ni-edit"></em><span>Edit Category</span></a>
+                                                    </li>
+                                                    <li><a data-bs-toggle="modal" href="#modalDelete"><em
+                                                            class="icon ni ni-delete"></em><span>Delete Category</span></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

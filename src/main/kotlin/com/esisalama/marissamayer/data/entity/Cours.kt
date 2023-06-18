@@ -23,7 +23,7 @@ data class Cours(
     val id: Long = 0
 
     @ManyToOne
-    @JoinColumn(name = "categorie_id", nullable = true)
+    @JoinColumn(name = "categorie_id", referencedColumnName = "id", nullable = true)
     val categorie: Categorie? = null
 
     @OneToMany(mappedBy = "cours")

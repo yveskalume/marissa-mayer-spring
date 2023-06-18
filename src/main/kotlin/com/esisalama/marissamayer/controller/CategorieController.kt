@@ -2,6 +2,7 @@ package com.esisalama.marissamayer.controller
 
 import com.esisalama.marissamayer.data.entity.Categorie
 import com.esisalama.marissamayer.data.repository.CategorieRepository
+import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -19,27 +20,27 @@ class CategorieController(
         return "categorie/index"
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/categories/{id}")
     fun getCategorieById(@PathVariable id: Long, model: Model): String {
         val categorie = categorieRepository.findById(id)
                 .orElseThrow { Exception("Categorie not found with id: $id") }
         model.addAttribute("categorie", categorie)
-        return "categories/details"
+        return "categorie/details"
     }
 
-    @GetMapping("/new")
+    @GetMapping("/categories/new")
     fun showCreateForm(model: Model): String {
-//        model.addAttribute("categorie", Categorie())
-        return "categories/create"
+        model.addAttribute("categorie", Categorie())
+        return "categorie/create"
     }
 
-    @PostMapping
+    @PostMapping("/categories/new")
     fun createCategorie(
-            @ModelAttribute("categorie") categorie: Categorie,
+            @Valid categorie: Categorie,
             bindingResult: BindingResult
     ): String {
         if (bindingResult.hasErrors()) {
-            return "categories/create"
+            return "categorie/create"
         }
         categorieRepository.save(categorie)
         return "redirect:/categories"
