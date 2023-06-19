@@ -31,7 +31,10 @@ data class Utilisateur(
 
         @Enumerated(EnumType.STRING)
         @Column(nullable = false)
-        val role: Role
+        val role: Role,
+
+        @Column(nullable = true)
+        val localisation: String? = null,
 ) {
     constructor() : this("", "", "", "", Instant.now(), Role.ETUDIANT)
     constructor(nom: String, prenom: String, email: String, password: String) : this(nom, prenom, email, password, Instant.now(), Role.ETUDIANT)

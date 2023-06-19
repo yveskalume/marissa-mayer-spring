@@ -40,12 +40,16 @@
                                             <ul class="d-flex g-3 gx-5">
                                                 <li>
                                                     <div class="fs-14px text-muted">Durée :</div>
+                                                    <div class="fs-14px text-muted">Niveau :</div>
                                                     <div class="fs-14px text-muted">Prérequis :</div>
                                                 </li>
 
                                                 <li>
                                                     <div class="fs-14px bold"
                                                          th:text="${cours.duree + ' Heures'}"></div>
+
+                                                    <div class="fs-14px bold"
+                                                         th:text="${cours.niveau.nom}"></div>
                                                     <div class="fs-14px bold"
                                                          th:text="${cours.prerequis}"></div>
                                                 </li>

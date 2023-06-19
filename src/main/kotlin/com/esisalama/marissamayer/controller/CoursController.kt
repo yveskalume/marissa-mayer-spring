@@ -4,6 +4,7 @@ import com.esisalama.marissamayer.data.entity.Categorie
 import com.esisalama.marissamayer.data.entity.Cours
 import com.esisalama.marissamayer.data.repository.CategorieRepository
 import com.esisalama.marissamayer.data.repository.CoursRepository
+import com.esisalama.marissamayer.data.repository.NiveauRepository
 import com.esisalama.marissamayer.data.repository.UtilisateurRepository
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,7 +20,8 @@ import org.springframework.web.bind.annotation.*
 class CoursController(
         @Autowired private val coursRepository: CoursRepository,
         @Autowired private val categorieRepository: CategorieRepository,
-        @Autowired private val utilisateurRepository: UtilisateurRepository
+        @Autowired private val utilisateurRepository: UtilisateurRepository,
+        @Autowired private val niveauRepository: NiveauRepository
 ) {
     @GetMapping
     fun getAllCours(model: Model): String {
@@ -34,7 +36,6 @@ class CoursController(
                 .orElseThrow { Exception("Cours not found with id: $id") }
 
         val suggestionCours = cours.categorie?.let { coursRepository.findByCategorieId(it.id) } ?: listOf()
-
         model.addAttribute("cours", cours)
         model.addAttribute("suggestionCours", suggestionCours)
         return "cours/details"
@@ -44,10 +45,10 @@ class CoursController(
     fun showCreateForm(model: Model): String {
         val cours = Cours()
         val categories = categorieRepository.findAll()
-
+        val niveaux = niveauRepository.findAll()
         model.addAttribute("cours", cours)
         model.addAttribute("categories", categories)
-
+        model.addAttribute("niveaux",niveaux)
         return "instructor/create_cours"
     }
 

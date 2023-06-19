@@ -18,7 +18,7 @@ data class Cours(
         val prix: Double,
 
         @field:NotBlank(message = "La description du cours est obligatoire")
-        @Column(nullable = false)
+        @Column(nullable = false, length = 100000)
         val description: String,
 
         @field:NotNull(message = "La durée du cours est obligatoire")
@@ -39,11 +39,29 @@ data class Cours(
         @OneToMany(mappedBy = "cours")
         val creneaux: List<Creneau>? = null,
 
+        @ManyToOne(optional = false)
+        @JoinColumn(name = "niveau_id", referencedColumnName = "id", nullable = false)
+        val niveau: Niveau? = null,
+
         @ManyToOne
         @JoinColumn(name = "utilisateur_id", referencedColumnName = "id", nullable = false)
         val instructeur: Utilisateur? = null
 ) {
-    constructor() : this("", 0.0, "", 0, null, Instant.now(), null, null, null)
+    constructor() : this("", 0.0, "", 0, "", Instant.now(), null, null, null, null, null)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0
+}
+
+
+@Entity
+class Niveau(
+        @field:NotBlank(message = "Le nom du niveau est obligatoire")
+        @Column(nullable = false)
+        val nom: String
+) {
+    constructor() : this("")
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -71,7 +71,22 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="categorie">Niveau</label>
+                                                <div class="form-control-wrap">
+                                                    <select id="niveau" class="form-select js-select2" data-search="on"
+                                                            th:field="*{niveau}">
+                                                        <option th:each="coursNiveau : ${niveaux}"
+                                                                th:selected="${cours?.niveau?.id == coursNiveau.id}"
+                                                                th:text="${coursNiveau.nom}" th:value="${coursNiveau.id}">
+                                                            Niveau
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label class="form-label"
                                                        for="prerequis">Prérequis (separez par une virgule)</label>
