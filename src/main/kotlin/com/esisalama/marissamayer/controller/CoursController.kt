@@ -1,11 +1,8 @@
 package com.esisalama.marissamayer.controller
 
-import com.esisalama.marissamayer.data.entity.Categorie
 import com.esisalama.marissamayer.data.entity.Cours
-import com.esisalama.marissamayer.data.repository.CategorieRepository
-import com.esisalama.marissamayer.data.repository.CoursRepository
-import com.esisalama.marissamayer.data.repository.NiveauRepository
-import com.esisalama.marissamayer.data.repository.UtilisateurRepository
+import com.esisalama.marissamayer.data.entity.CreneauStatuts
+import com.esisalama.marissamayer.data.repository.*
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.Authentication
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.*
+import java.time.LocalDateTime
 
 @Controller
 @RequestMapping("/cours")
@@ -21,11 +19,17 @@ class CoursController(
         @Autowired private val coursRepository: CoursRepository,
         @Autowired private val categorieRepository: CategorieRepository,
         @Autowired private val utilisateurRepository: UtilisateurRepository,
-        @Autowired private val niveauRepository: NiveauRepository
+        @Autowired private val niveauRepository: NiveauRepository,
+        @Autowired private val creneauRepository: CreneauRepository
 ) {
     @GetMapping
-    fun getAllCours(model: Model): String {
-        val courses = coursRepository.findAll()
+    fun getAllCours(@RequestParam(required = false, name = "categorie") categorieId: Long?, model: Model): String {
+
+        val courses = if (categorieId != null) {
+            coursRepository.findByCategorieId(categorieId)
+        } else {
+            coursRepository.findAll()
+        }
         model.addAttribute("courses", courses)
         return "cours/index"
     }
@@ -36,8 +40,12 @@ class CoursController(
                 .orElseThrow { Exception("Cours not found with id: $id") }
 
         val suggestionCours = cours.categorie?.let { coursRepository.findByCategorieId(it.id) } ?: listOf()
+
+        val creneaux = creneauRepository.findAllByCoursId(id).filter { it.statuts == CreneauStatuts.LIBRE && it.date!! > LocalDateTime.now() }
+
         model.addAttribute("cours", cours)
         model.addAttribute("suggestionCours", suggestionCours)
+        model.addAttribute("creneaux", creneaux)
         return "cours/details"
     }
 
@@ -48,7 +56,7 @@ class CoursController(
         val niveaux = niveauRepository.findAll()
         model.addAttribute("cours", cours)
         model.addAttribute("categories", categories)
-        model.addAttribute("niveaux",niveaux)
+        model.addAttribute("niveaux", niveaux)
         return "instructor/create_cours"
     }
 
@@ -76,37 +84,6 @@ class CoursController(
         return "redirect:/instructor/my-courses"
     }
 
-    @GetMapping("/{id}/edit")
-    fun showUpdateForm(@PathVariable id: Long, model: Model): String {
-        val cours = coursRepository.findById(id)
-                .orElseThrow { Exception("Cours not found with id: $id") }
-        val categories = categorieRepository.findAll()
-        model.addAttribute("cours", cours)
-        model.addAttribute("categories", categories)
-        return "cours/edit"
-    }
-
-    @PostMapping("/{id}")
-    fun updateCours(
-            @PathVariable id: Long,
-            bindingResult: BindingResult,
-            model: Model
-    ): String {
-        if (bindingResult.hasErrors()) {
-            val categories = categorieRepository.findAll()
-            model.addAttribute("categories", categories)
-            return "cours/edit"
-        }
-        val cours = coursRepository.findById(id)
-                .orElseThrow { Exception("Cours not found with id: $id") }
-//        cours.nom = updatedCours.nom
-//        cours.description = updatedCours.description
-//        cours.duree = updatedCours.duree
-//        cours.prerequis = updatedCours.prerequis
-//        cours.categorie = updatedCours.categorie
-        coursRepository.save(cours)
-        return "redirect:/cours"
-    }
 
     @GetMapping("/{id}/delete")
     fun deleteCours(@PathVariable id: Long): String {

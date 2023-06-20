@@ -38,21 +38,21 @@ class CoursSeed(
             niveauxList.addAll(niveaux)
         }
 
-        if (courses.isEmpty() && utilisateur.isPresent) {
-            for (i in 1..5) {
-                val cours = Cours(
-                        nom = faker.funnyName().name(),
-                        prix = faker.number().randomDouble(2, 100, 1000),
-                        description = faker.lorem().characters(100),
-                        duree = faker.number().numberBetween(5, 30),
-                        prerequis = faker.name().title(),
-                        createdAt = Instant.now(),
-                        instructeur = utilisateur.get(),
-                        niveau = niveauxList.random()
-                )
-
-                coursRepository.save(cours)
-            }
-        }
+//        if (courses.isEmpty() && utilisateur.isPresent) {
+//            for (i in 1..5) {
+//                val cours = Cours(
+//                        nom = faker.funnyName().name(),
+//                        prix = faker.number().randomDouble(2, 100, 1000),
+//                        description = faker.lorem().characters(100),
+//                        duree = faker.number().numberBetween(5, 30),
+//                        prerequis = faker.name().title(),
+//                        createdAt = Instant.now(),
+//                        instructeur = utilisateur.get(),
+//                        niveau = niveauxList.random()
+//                )
+//
+//                coursRepository.save(cours)
+//            }
+//        }
     }
 }

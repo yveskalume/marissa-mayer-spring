@@ -42,15 +42,17 @@
                         <div class="col-sm-6 col-lg-4 col-xxl-3" th:each="categorie : ${categories}">
                             <div class="card h-100">
                                 <div class="card-inner">
-                                    <div class="d-flex justify-content-between align-items-start mb-3"><a
-                                            class="d-flex align-items-center" href="courses.html">
-                                        <div class="user-avatar sq bg-purple">
-                                            <span th:text="${#strings.substring(categorie.nom,0,2)}"></span>
-                                        </div>
-                                        <div class="ms-3">
-                                            <h6 class="title mb-1" th:text="${categorie.nom}">Titre</h6>
-                                            <span class="sub-text" th:text="${#lists.size(categorie.cours) } + ' Cours' ">Nombre des cours dans la categorie</span></div>
-                                    </a>
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <a class="d-flex align-items-center" th:href="@{/cours(categorie=${categorie.id})}">
+                                            <div class="user-avatar sq bg-purple">
+                                                <span th:text="${#strings.substring(categorie.nom,0,2)}"></span>
+                                            </div>
+                                            <div class="ms-3">
+                                                <h6 class="title mb-1" th:text="${categorie.nom}">Titre</h6>
+                                                <span class="sub-text"
+                                                      th:text="${#lists.size(categorie.cours) } + ' Cours' ">Nombre des cours dans la categorie</span>
+                                            </div>
+                                        </a>
                                         <div class="dropdown"><a
                                                 class="dropdown-toggle btn btn-sm btn-icon btn-trigger mt-n1 me-n1"
                                                 data-bs-toggle="dropdown"
