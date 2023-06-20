@@ -13,9 +13,9 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Vos cours</h3>
+                            <h3 class="nk-block-title page-title">Creneaux du cours</h3>
                             <div class="nk-block-des text-soft">
-                                <p th:text="${#lists.size(courses) + ' Cours' }"></p>
+                                <p th:text="${cours.nom}"></p>
                             </div>
                         </div>
                         <div class="nk-block-head-content">
@@ -26,10 +26,12 @@
                                     class="icon ni ni-menu-alt-r"></em></a>
                                 <div class="toggle-expand-content" data-content="pageMenu">
                                     <ul class="nk-block-tools g-3">
-                                        <li class="nk-block-tools-opt d-none d-sm-block">
-                                            <a class="btn btn-primary"
-                                               th:href="@{/cours/new}">
-                                                <em class="icon ni ni-plus"></em><span>Nouveau cours</span></a>
+                                        <li class="nk-block-tools-opt d-none d-sm-block"
+                                            data-bs-target="#modalCreate" data-bs-toggle="modal">
+                                            <a class="btn btn-primary" href="#">
+                                                <em class="icon ni ni-plus"></em>
+                                                <span>Nouveau creneau</span>
+                                            </a>
                                         </li>
                                         <li class="nk-block-tools-opt d-block d-sm-none"
                                             data-bs-target="#modalCreate" data-bs-toggle="modal"><a
@@ -49,18 +51,13 @@
                                 <table class="nk-tb-list nk-tb-ulist">
                                     <thead>
                                     <tr class="nk-tb-item nk-tb-head">
-                                        <th class="nk-tb-col"><span class="sub-text">Intitulé</span></th>
+                                        <th class="nk-tb-col"><span class="sub-text">Date</span></th>
                                         <th class="nk-tb-col tb-col-lg"><span
-                                                class="sub-text">Categorie</span></th>
-                                        <th class="nk-tb-col tb-col-lg">
-                                            <span class="sub-text">Durée</span>
+                                                class="sub-text">Etat</span></th>
+                                        <th class="nk-tb-col tb-col-lg"><span
+                                                class="sub-text">Etudiant</span>
                                         </th>
-                                        <th class="nk-tb-col tb-col-lg">
-                                            <span class="sub-text">Prix</span>
-                                        </th>
-                                        <th class="nk-tb-col tb-col-lg">
-                                            <span class="sub-text">Date de création</span>
-                                        </th>
+
                                         <th class="nk-tb-col nk-tb-col-tools text-end">
                                             <ul class="nk-tb-actions gx-1">
                                                 <li>
@@ -74,27 +71,23 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr class="nk-tb-item" th:each=" cours : ${courses}">
+                                    <tr class="nk-tb-item" th:each="creneau : ${creneaux}">
                                         <td class="nk-tb-col">
-                                            <a class="project-title" th:href="@{/cours/{id}(id=${cours.id})}">
+                                            <a class="project-title">
                                                 <div class="project-info">
-                                                    <h6 class="title" th:text="${cours.nom}">Titre</h6>
+                                                    <h6 class="title"
+                                                        th:text="${#temporals.format(creneau.date,'dd/MMM/yyyy à HH:mm')}">
+                                                        Date</h6>
                                                 </div>
                                             </a>
                                         </td>
                                         <td class="nk-tb-col tb-col-lg">
-                                            <span th:text="${cours?.categorie?.nom}"></span>
+                                            <span th:text="${creneau.statuts}"></span>
                                         </td>
                                         <td class="nk-tb-col tb-col-lg">
-                                            <span th:text="${cours.duree + ' Heures'}">Duree</span>
+                                            <span th:text="${(creneau?.utilisateur?.email ?: '-') }">Utilisateur</span>
                                         </td>
-                                        <td class="nk-tb-col tb-col-md">
-                                            <span class="badge badge-md bg-primary"
-                                                  th:text="'$' + ${cours.prix}">Prix</span>
-                                        </td>
-                                        <td class="nk-tb-col tb-col-lg">
-                                            <span th:text=" ${#dates.format(cours.createdAt,'dd/MMM/yyyy')}">Date de création</span>
-                                        </td>
+
                                         <td class="nk-tb-col nk-tb-col-tools">
                                             <ul class="nk-tb-actions gx-1">
                                                 <li>
@@ -105,10 +98,9 @@
                                                             class="icon ni ni-more-h"></em></a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <ul class="link-list-opt no-bdr">
-                                                                <li>
-                                                                    <a th:href="@{/cours/{coursId}/creneaux(coursId=${cours.id})}">
-                                                                        <em class="icon ni ni-calender-date-fill"></em><span>Creneaux</span>
-                                                                    </a>
+                                                                <li><a data-bs-toggle="modal"
+                                                                       href="#modalEdit"><em
+                                                                        class="icon ni ni-edit"></em><span>Edit Course</span></a>
                                                                 </li>
                                                                 <li><a data-bs-toggle="modal"
                                                                        href="#modalDelete"><em
@@ -130,6 +122,51 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalCreate">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content"><a aria-label="Close" class="close" data-bs-dismiss="modal" href="#"> <em
+                    class="icon ni ni-cross-sm"></em></a>
+                <div class="modal-body modal-body-md"><h5 class="modal-title">Nouveau creneau</h5>
+                    <form class="pt-2" action="#" th:object="${newCreneau}" th:action="@{/cours/{coursId}/creneaux(coursId=${cours.id})}" method="POST">
+                        <div class="row gy-3 gx-gs">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label" for="state">Etat</label>
+                                    <div class="form-control-wrap">
+                                        <select class="form-select js-select2" id="state" th:field="*{statuts}">
+                                            <option th:each="status : ${statues}" th:text="${status}" th:value="${status}">
+                                                Etat
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label" for="course-lesson"></label>
+                                    <div class="form-control-wrap">
+                                        <input th:field="*{date}" class="form-control" id="course-lesson"
+                                               placeholder="40" type="datetime-local">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <button class="btn btn-primary" data-bs-dismiss="modal" type="submit">
+                                        Enregistrer
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
 </body>
 </html>

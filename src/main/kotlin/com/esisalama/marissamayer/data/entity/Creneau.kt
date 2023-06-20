@@ -1,37 +1,30 @@
 package com.esisalama.marissamayer.data.entity
 
 import jakarta.persistence.*
+import java.time.LocalDateTime
 
 @Entity
 data class Creneau(
-        @Enumerated(EnumType.STRING)
-        val jour: Jour,
-
         @Column(nullable = false)
-        val heureDebut: String,
-
-        @Column(nullable = false)
-        val heureFin: String,
+        val date: LocalDateTime? = null,
 
         @Enumerated(EnumType.STRING)
         @Column(nullable = false)
-        val statuts: CreneauStatuts
+        val statuts: CreneauStatuts,
+
+        @ManyToOne
+        @JoinColumn(name = "cours_id", nullable = false)
+        val cours: Cours? = null,
+
+        @ManyToOne
+        @JoinColumn(name = "utilisateur_id", nullable = true)
+        val utilisateur: Utilisateur? = null
 ) {
+    constructor() : this(date = null, statuts = CreneauStatuts.LIBRE, cours = null, utilisateur = null)
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0
-
-    @ManyToOne
-    @JoinColumn(name = "cours_id", nullable = false)
-    val cours: Cours? = null
-
-    @ManyToOne
-    @JoinColumn(name = "utilisateur_id", nullable = false)
-    val utilisateur: Utilisateur? = null
-}
-
-enum class Jour {
-    LUNDI, MARDI, MERCREDI, JEUDI, VENDREDI, SAMEDI, DIMANCHE
 }
 
 enum class CreneauStatuts {

@@ -1,25 +1,18 @@
-2023-06-19 14:35:05 jdbc[3]: exception
+2023-06-20 14:13:18 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
-2023-06-19 14:35:05 jdbc[3]: exception
+2023-06-20 14:13:18 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
-2023-06-19 14:35:05 jdbc[3]: exception
+2023-06-20 14:13:18 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
-2023-06-19 14:38:17 jdbc[3]: exception
+2023-06-20 14:13:59 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
-2023-06-19 14:43:35 jdbc[3]: exception
+2023-06-20 14:14:12 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
-2023-06-19 14:43:35 jdbc[3]: exception
+2023-06-20 14:14:20 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
-2023-06-19 14:43:35 jdbc[3]: exception
+2023-06-20 14:14:53 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
-2023-06-19 14:43:35 jdbc[3]: exception
+2023-06-20 14:16:35 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
-2023-06-19 14:43:35 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
-2023-06-19 14:58:53 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
-2023-06-19 15:53:44 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "'A powerful admin dashboard template that especially build for developers and pr... (277)"; SQL statement:
-insert into cours (categorie_id,created_at,description,duree,utilisateur_id,niveau_id,nom,prerequis,prix,id) values (?,?,?,?,?,?,?,?,?,default) [22001-214]
-2023-06-19 15:55:52 jdbc[3]: exception
+2023-06-20 14:39:57 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]

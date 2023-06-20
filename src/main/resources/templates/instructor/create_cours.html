@@ -41,7 +41,7 @@
                                                 <label class="form-label"
                                                        for="prix">Prix ($)</label>
                                                 <div class="form-control-wrap">
-                                                    <input class="form-control" id="prix" th:field="*{prix}"
+                                                    <input min="0" class="form-control" id="prix" th:field="*{prix}"
                                                            type="number">
                                                 </div>
                                             </div>
@@ -51,7 +51,7 @@
                                                 <label class="form-label"
                                                        for="duree">Nombre d'heures</label>
                                                 <div class="form-control-wrap">
-                                                    <input class="form-control" id="duree" th:field="*{duree}"
+                                                    <input min="0" class="form-control" id="duree" th:field="*{duree}"
                                                            type="number">
                                                 </div>
                                             </div>
