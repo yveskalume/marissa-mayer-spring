@@ -17,7 +17,6 @@ class HomeController(
     @GetMapping("/")
     fun index(): String {
         val cours = coursRepository.findAll()
-        println(cours)
         return "redirect:/cours"
     }
 }

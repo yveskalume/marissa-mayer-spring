@@ -61,7 +61,30 @@
                             <hr class="hr border-light">
                             <div class="row g-gs flex-lg-row-reverse pt-5">
                                 <div class="col-lg-12">
-<!--&lt;!&ndash;                             Creneaux ici       -->
+                                    <h4 class="nk-block-title">Creneaux disponibles</h4>
+                                    <table class="nk-tb-list nk-tb-ulist">
+                                        <tbody>
+                                        <tr class="nk-tb-item" th:unless="${#lists.isEmpty(creneaux)}" th:each="creneau : ${creneaux}">
+                                            <td class="nk-tb-col">
+                                                <a class="project-title">
+                                                    <div class="project-info">
+                                                        <h6 class="title"
+                                                            th:text="${#temporals.format(creneau.date,'dd/MMM/yyyy à HH:mm')}">
+                                                            Date</h6>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="nk-tb-item" th:if="${#lists.isEmpty(creneaux)}">
+                                            Aucun creneau disponible
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-12" th:unless="${#lists.isEmpty(creneaux)}">
+                                    <a class="btn btn-primary"
+                                       th:href="@{/cours/{coursId}/reserver(coursId=${cours.id})}">
+                                        <em class="icon ni ni-plus"></em><span>Reserver</span></a>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +99,7 @@
                     </div>
                     <div class="slider-init row"
                          data-slick='{"slidesToShow": 4, "centerMode": false, "slidesToScroll": 1, "infinite":false, "responsive":[ {"breakpoint": 1540,"settings":{"slidesToShow": 3}},{"breakpoint": 992,"settings":{"slidesToShow": 2}}, {"breakpoint": 576,"settings":{"slidesToShow": 1}} ]}'>
-                        <div th:each="suggestion : ${suggestionCours}" class="col">
+                        <div class="col" th:each="suggestion : ${suggestionCours}">
                             <div class="card card-bordered product-card">
                                 <div class="product-thumb">
                                     <ul class="product-badges">
@@ -88,11 +111,13 @@
                                 <div class="card-inner text-center">
                                     <div>
                                         <h5 class="product-title">
-                                            <a th:href="@{/cours/{id}(id=${suggestion.id})}" th:text="${suggestion.nom}">Titre</a>
+                                            <a th:href="@{/cours/{id}(id=${suggestion.id})}"
+                                               th:text="${suggestion.nom}">Titre</a>
                                         </h5>
                                     </div>
                                     <div class="product-price text-primary h5">
-                                        <small class="text-muted del fs-13px" th:text="'$'+${suggestion.prix}">Prix</small>
+                                        <small class="text-muted del fs-13px"
+                                               th:text="'$'+${suggestion.prix}">Prix</small>
                                     </div>
                                 </div>
                             </div>

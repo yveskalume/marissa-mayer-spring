@@ -16,11 +16,14 @@ data class Creneau(
         @JoinColumn(name = "cours_id", nullable = false)
         val cours: Cours? = null,
 
+        @OneToOne(mappedBy = "creneau", cascade = [CascadeType.ALL])
+        val reservation: Reservation? = null,
+
         @ManyToOne
         @JoinColumn(name = "utilisateur_id", nullable = true)
         val utilisateur: Utilisateur? = null
 ) {
-    constructor() : this(date = null, statuts = CreneauStatuts.LIBRE, cours = null, utilisateur = null)
+    constructor() : this(date = null, statuts = CreneauStatuts.LIBRE, cours = null,reservation = null,utilisateur = null)
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

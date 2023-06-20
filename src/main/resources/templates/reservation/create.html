@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html layout:decorate="~{fragments/_dashboard.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cours</title>
+</head>
+<body>
+<div class="nk-content " layout:fragment="content">
+    <div class="container-fluid">
+        <div class="nk-content-inner">
+            <div class="nk-content-body">
+                <div class="nk-block-head nk-block-head-sm">
+                    <div class="nk-block-between g-3">
+                        <div class="nk-block-head-content"><h3 class="nk-block-title page-title">
+                            Effectuer une reservation</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="nk-block">
+                    <div class="card">
+                        <div class="card-inner">
+                            <form action="#" class="row gy-4"
+                                  method="POST" th:action="@{/cours/{coursId}/reserver(coursId=${coursId})}"
+                                  th:object="${reservation}">
+                                <input type="hidden" th:field="*{utilisateur}" th:value="${utilisateur}">
+                                <input type="hidden" th:field="*{statuts}">
+                                <input type="hidden" th:field="*{createdAt}">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Creneau</label>
+                                        <div class="form-control-wrap">
+                                            <select th:field="*{creneau}" class="form-select js-select2" data-search="on">
+                                                <option th:each="creneau : ${creneaux}"
+                                                        th:text="${#temporals.format(creneau.date,'dd/MMM/yyyy à HH:mm')}" th:value="${creneau.id}">
+                                                    Creneau
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <ul class="preview-list ">
+                                        <li class="preview-item">
+                                            <button class="btn btn-primary" type="submit">Enroll Student
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
