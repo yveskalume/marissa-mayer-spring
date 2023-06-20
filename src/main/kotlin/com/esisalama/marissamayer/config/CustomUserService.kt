@@ -3,6 +3,7 @@ package com.esisalama.marissamayer.config
 import com.esisalama.marissamayer.data.repository.UtilisateurRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -20,7 +21,7 @@ class CustomUserService : UserDetailsService {
         }
         val utilisateur = optionalUtilisateur.get()
 
-        val grantedAuthorities = listOf<GrantedAuthority>()
+        val grantedAuthorities = listOf<GrantedAuthority>(SimpleGrantedAuthority(utilisateur.role.name))
 
         return User(utilisateur.email,utilisateur.password,grantedAuthorities)
     }

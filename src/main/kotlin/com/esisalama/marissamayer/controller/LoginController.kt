@@ -11,7 +11,7 @@ class LoginController {
     private lateinit var utilisateurRepository: UtilisateurRepository
 
     @GetMapping("/login")
-    fun showLogin() : String {
+    fun showLogin(): String {
         return "auth/login"
     }
 }

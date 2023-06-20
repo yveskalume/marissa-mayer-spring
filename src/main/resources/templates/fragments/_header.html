@@ -21,39 +21,9 @@
                     type="text">
             </div>
             <div class="nk-header-tools">
-                <ul class="nk-quick-nav">
-
-                    <li class="dropdown user-dropdown"><a class="dropdown-toggle me-n1"
-                                                          data-bs-toggle="dropdown"
-                                                          href="#">
-                        <div class="user-toggle">
-                            <div class="user-avatar sm"><em class="icon ni ni-user-alt"></em></div>
-                            <div class="user-info d-none d-xl-block">
-                                <div class="user-status user-status-active">Administator</div>
-                                <div class="user-name dropdown-indicator">Abu Bin Ishityak</div>
-                            </div>
-                        </div>
-                    </a>
-                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-end">
-                            <div class="dropdown-inner">
-                                <ul class="link-list">
-                                    <li><a href="admin-profile.html"><em
-                                            class="icon ni ni-user-alt"></em><span>View Profile</span></a>
-                                    </li>
-                                    <li><a href="admin-profile-setting.html"><em
-                                            class="icon ni ni-setting-alt"></em><span>Account Setting</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="dropdown-inner">
-                                <ul class="link-list">
-                                    <li><a href="#"><em
-                                            class="icon ni ni-signout"></em><span>Sign out</span></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                <form name="logoutForm" th:action="@{/logout}" method="post">
+                    <input class="btn btn-primary" type="submit" value="Deconnexion"/>
+                </form>
             </div>
         </div>
     </div>

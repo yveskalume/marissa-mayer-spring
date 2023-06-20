@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Sidebar</title>
 </head>
@@ -52,7 +52,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nk-menu-item has-sub">
+                    <li class="nk-menu-item has-sub" sec:authorize="${hasAuthority('PRESTATAIRE')}">
                         <a class="nk-menu-link nk-menu-toggle" href="#">
                             <span class="nk-menu-icon">
                                 <em class="icon ni ni-user-fill"></em>

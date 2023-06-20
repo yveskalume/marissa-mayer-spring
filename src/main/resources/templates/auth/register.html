@@ -57,6 +57,16 @@
                                                type="text">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <select th:field="*{role}" class="form-select js-select2" data-search="on">
+                                            <option th:each="newRole : ${roles}"
+                                                    th:text="${newRole}" th:value="${newRole}">
+                                                Creneau
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="form-group"><label class="form-label" for="password">Mot de passe</label>
                                     <div class="form-control-wrap"><a
                                             class="form-icon form-icon-right passcode-switch lg" data-target="password"
@@ -74,7 +84,6 @@
                                 <div class="form-group">
                                     <button class="btn btn-lg btn-primary btn-block">S'enregistrer</button>
                                 </div>
-                                <input type="text" th:field="*{role}" hidden>
                                 <input type="text" th:field="*{createdAt}" hidden>
                             </form>
                             <div class="form-note-s2 pt-4"> Avez-vous un compte ? <a
