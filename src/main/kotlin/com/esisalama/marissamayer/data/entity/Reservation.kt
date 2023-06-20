@@ -34,3 +34,15 @@ data class Reservation(
 enum class ReservationStatuts {
     REJETEE, EN_ATTENTE, CONFIRMEE
 }
+
+fun Reservation.isRejected(): Boolean {
+    return statuts == ReservationStatuts.REJETEE
+}
+
+fun Reservation.isConfirmed(): Boolean {
+    return statuts == ReservationStatuts.CONFIRMEE
+}
+
+fun Reservation.isPending(): Boolean {
+    return statuts == ReservationStatuts.EN_ATTENTE
+}

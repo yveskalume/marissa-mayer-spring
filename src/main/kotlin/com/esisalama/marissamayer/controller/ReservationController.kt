@@ -27,6 +27,16 @@ class ReservationController(
         @Autowired private val utilisateurRepository: UtilisateurRepository,
         @Autowired private val paiementRepository: PaiementRepository,
 ) {
+
+    @GetMapping("reservations")
+    fun getAllMyReservations(auth: Authentication, model: Model): String {
+        val user = auth.principal as User
+        val reservations = reservationRepository.findAll().filter { it.utilisateur?.email == user.username }
+
+        model.addAttribute("reservations", reservations)
+
+        return "reservation/index"
+    }
     @GetMapping("cours/{coursId}/reserver")
     fun showReservationForm(@PathVariable coursId: Long, auth: Authentication, model: Model): String {
         val creneaux = creneauRepository.findAllByCoursId(coursId).filter { it.statuts == CreneauStatuts.LIBRE && it.date!! > LocalDateTime.now() }
