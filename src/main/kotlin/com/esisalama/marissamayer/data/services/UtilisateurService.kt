@@ -1,6 +1,5 @@
 package com.esisalama.marissamayer.data.services
 
-import com.esisalama.marissamayer.data.entity.Role
 import com.esisalama.marissamayer.data.entity.Utilisateur
 import com.esisalama.marissamayer.data.repository.UtilisateurRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,7 +18,7 @@ class UtilisateurService {
 
     fun save(utilisateur: Utilisateur): Utilisateur {
         return if (utilisateur.id == null) {
-            val mUtilisateur = utilisateur.copy(password = passwordEncoder.encode(utilisateur.password), createdAt = Instant.now(), role = Role.ETUDIANT)
+            val mUtilisateur = utilisateur.copy(password = passwordEncoder.encode(utilisateur.password), createdAt = Instant.now())
             utilisateurRepository.save(mUtilisateur)
         } else {
             utilisateurRepository.save(utilisateur)

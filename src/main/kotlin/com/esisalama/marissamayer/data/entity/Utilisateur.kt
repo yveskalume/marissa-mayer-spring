@@ -45,5 +45,5 @@ data class Utilisateur(
 }
 
 enum class Role {
-    PRESTATAIRE, ETUDIANT
+    ETUDIANT, PRESTATAIRE
 }

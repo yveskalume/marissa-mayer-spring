@@ -17,11 +17,11 @@ class RegisterController {
     @Autowired
     private lateinit var utilisateurService: UtilisateurService
 
+    val roles = Role.values()
 
     @GetMapping("/register")
     fun getRegister(model: Model): String {
         val utilisateur = Utilisateur()
-        val roles = Role.values()
         model.addAttribute("utilisateur", utilisateur)
         model.addAttribute("roles", roles)
         return "auth/register"
@@ -30,11 +30,11 @@ class RegisterController {
     @PostMapping("/register")
     fun postRegister(@Valid utilisateur: Utilisateur, bindingResult: BindingResult, model: Model): String {
         if (bindingResult.hasErrors()) {
-            val roles = Role.values()
             model.addAttribute("errors", bindingResult.allErrors)
             model.addAttribute("roles", roles)
             return "auth/register"
         }
+        println(utilisateur)
         utilisateurService.save(utilisateur)
         return "redirect:/login"
     }
