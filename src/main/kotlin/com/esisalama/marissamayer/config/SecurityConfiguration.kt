@@ -51,7 +51,7 @@ class SecurityConfiguration {
                 authorize("/register", permitAll)
                 authorize("/login", permitAll)
                 authorize(PathRequest.toH2Console(),permitAll)
-//                authorize("/instructor/**",hasAuthority("PRESTATAIRE"))
+                authorize("/instructor/**",hasAuthority("PRESTATAIRE"))
                 authorize("/cours/new",hasAuthority("PRESTATAIRE"))
                 authorize("/categories/new",hasAuthority("PRESTATAIRE"))
                 authorize(anyRequest, authenticated)
