@@ -61,23 +61,19 @@ class ReservationController(
         val springUser = auth.principal as User
         val utilisateur = utilisateurRepository.findOneByEmail(springUser.username).get()
 
-        reservation.creneau?.let {
-            val mCreneau = Creneau(
-                    statuts = CreneauStatuts.OCCUPEE,
-                    utilisateur = utilisateur,
-                    date = it.date,
-                    cours = it.cours
-            )
-            creneauRepository.deleteById(it.id)
-            creneauRepository.save(mCreneau)
-            val reservation = reservationRepository.save(reservation.copy(utilisateur = utilisateur, creneau = mCreneau))
-            val paiement = Paiement(
-                    montant = reservation.creneau?.cours?.prix ?: 0.0,
-                    reservation = reservation,
-                    createdAt = Instant.now()
-            )
-            paiementRepository.save(paiement)
+        val reservation = reservationRepository.save(reservation.copy(utilisateur = utilisateur))
+        val paiement = Paiement(
+                montant = reservation.creneau?.cours?.prix ?: 0.0,
+                reservation = reservation,
+                createdAt = Instant.now()
+        )
+        paiementRepository.save(paiement)
 
+        reservation.creneau?.let {
+            val mCreneau = creneauRepository.findById(it.id).get()
+            mCreneau.statuts = CreneauStatuts.OCCUPEE
+            mCreneau.utilisateur = utilisateur
+            creneauRepository.save(mCreneau)
         }
 
         return "redirect:/cours/$coursId/reserver"

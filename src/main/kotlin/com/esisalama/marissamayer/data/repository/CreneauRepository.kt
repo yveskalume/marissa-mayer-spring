@@ -12,8 +12,4 @@ import org.springframework.stereotype.Repository
 @Repository
 interface CreneauRepository : JpaRepository<Creneau, Long> {
     fun findAllByCoursId(id: Long): List<Creneau>
-
-    @Modifying
-    @Query("UPDATE Creneau c set c.statuts = :status,c.utilisateur = :utilisateur WHERE c.id = :id")
-    fun updateStatusAndUtilisateur(@Param(value = "id") id: Long, @Param(value = "status") status: CreneauStatuts, @Param(value = "utilisateur") utilisateur: Utilisateur)
 }

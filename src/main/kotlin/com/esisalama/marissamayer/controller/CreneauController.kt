@@ -21,7 +21,7 @@ class CreneauController(
     @GetMapping("cours/{coursId}/creneaux")
     fun getAllCreneaux(@PathVariable coursId: Long, model: Model): String {
         val cours = coursRepository.findById(coursId)
-        val creneaux = creneauRepository.findAll()
+        val creneaux = creneauRepository.findAllByCoursId(coursId)
         val statues = CreneauStatuts.values()
         val newCreneau = Creneau()
         if (cours.isEmpty) {

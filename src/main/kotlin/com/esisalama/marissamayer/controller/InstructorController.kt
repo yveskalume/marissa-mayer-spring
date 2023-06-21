@@ -42,7 +42,8 @@ class InstructorController(
         val reservation = reservationRepository.findById(id)
 
         if (reservation.isPresent) {
-            val mReservation = reservation.get().copy(statuts = ReservationStatuts.REJETEE)
+            val mReservation = reservation.get()
+            mReservation.statuts = ReservationStatuts.REJETEE
             reservationRepository.save(mReservation)
         }
 
@@ -54,7 +55,8 @@ class InstructorController(
         val reservation = reservationRepository.findById(id)
 
         if (reservation.isPresent) {
-            val mReservation = reservation.get().copy(statuts = ReservationStatuts.CONFIRMEE)
+            val mReservation = reservation.get()
+            mReservation.statuts = ReservationStatuts.CONFIRMEE
             reservationRepository.save(mReservation)
         }
 

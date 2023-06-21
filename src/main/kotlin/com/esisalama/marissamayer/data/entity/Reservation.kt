@@ -7,7 +7,7 @@ import java.time.Instant
 data class Reservation(
         @Enumerated(EnumType.STRING)
         @Column(nullable = false)
-        val statuts: ReservationStatuts,
+        var statuts: ReservationStatuts,
 
         @Column(nullable = false)
         val createdAt: Instant,
