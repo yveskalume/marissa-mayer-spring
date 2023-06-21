@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html layout:decorate="~{fragments/_dashboard.html}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Categories</title>
@@ -22,7 +23,7 @@
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt d-none d-sm-block"><a
                                                 class="btn btn-primary"
-                                                th:href="@{categories/new}">
+                                                th:href="@{categories/new}" sec:authorize="${hasAuthority('PRESTATAIRE')}">
                                             <em class="icon ni ni-plus"></em>
                                             <span>Nouvelle categorie</span>
                                         </a>
