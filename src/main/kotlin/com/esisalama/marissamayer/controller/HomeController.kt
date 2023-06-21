@@ -5,7 +5,6 @@ import jakarta.servlet.RequestDispatcher
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.web.servlet.error.ErrorController
-import org.springframework.http.HttpStatus
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -25,12 +24,12 @@ class HomeController(
     }
 
     @RequestMapping("/error")
-    fun handleError(request: HttpServletRequest,model: Model): String? {
+    fun handleError(request: HttpServletRequest, model: Model): String? {
         val status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE)
         if (status != null) {
-            model.addAttribute("statusCode",status)
+            model.addAttribute("statusCode", status)
         } else {
-            model.addAttribute("statusCode","404")
+            model.addAttribute("statusCode", "404")
         }
         return "error"
     }
